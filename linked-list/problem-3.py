@@ -35,7 +35,7 @@ run until length-n return its value
 #         self.next = next
 from typing import Optional
 
-
+# solution 1
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:  # pyright: ignore[reportUndefinedVariable]
         current = head
@@ -49,4 +49,25 @@ class Solution:
         for i in range(l-n-1):
             current = current.next
         current.next = current.next.next
+        return head
+
+
+# solution2
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:  # pyright: ignore[reportUndefinedVariable]
+        if not head or not head.next:
+            return head
+        left = head
+        right = head
+        for _ in range(n):
+            right = right.next
+        if not right:
+            head = head.next
+            return head
+
+        while right and right.next:
+            left = left.next
+            right = right.next
+        if left:
+            left.next = left.next.next
         return head
